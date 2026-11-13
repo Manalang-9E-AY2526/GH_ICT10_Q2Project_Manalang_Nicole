@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- pyscript css -->
+            <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+            <!-- this script tag bootstraps pyscript -->
+            <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+            <!-- bootstrap -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+            <!-- google fonts -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <title>Drill 2</title>
+
+        <style>
+                :root {
+                    --burgundy: #570d24;
+                    --wine: #791b36;
+                    --gold: #d9b56d;
+                    --cream: #f8f0df;
+                    --dark: #24131a;
+                    --muted: #806d70;
+                }
+
+                * {
+                    box-sizing: border-box;
+                }
+
+                body {
+                    min-height: 100vh;
+                    margin: 0;
+                    font-family: 'DM Sans', sans-serif;
+                    color: var(--cream);
+                    background:
+                        radial-gradient(circle at top, #64243b, transparent 50%),
+                        linear-gradient(135deg, #180c12, #351421 60%, #170a10);
+                }
+
+                /* navigation header */
+                .navbar {
+                    padding: 17px 7%;
+                    background: rgba(20, 8, 14, 0.65);
+                    border-bottom: 1px solid rgba(217, 181, 109, 0.3);
+                }
+
+                .navbar-brand {
+                    color: var(--gold);
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.05rem;
+                    letter-spacing: 0.12em;
+                }
+
+                .nav-note {
+                    color: #d9c5c2;
+                    font-size: 0.72rem;
+                    letter-spacing: 0.12em;
+                }
+
+                /* page heading */
+                .hero {
+                    padding: 55px 20px 35px;
+                    text-align: center;
+                }
+
+                .hero-label {
+                    color: var(--gold);
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    letter-spacing: 0.3em;
+                }
+
+                .hero h1 {
+                    margin: 15px 0 8px;
+                    color: var(--gold);
+                    font-family: 'Cinzel', serif;
+                    font-size: clamp(2rem, 5vw, 3.3rem);
+                    letter-spacing: 0.04em;
+                }
+
+                .hero p {
+                    color: #dfcfca;
+                    font-size: 0.9rem;
+                }
+
+                .gold-line {
+                    width: 75px;
+                    height: 2px;
+                    margin: 22px auto;
+                    background: var(--gold);
+                }
+
+                /* main content */
+                .main-area {
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    gap: 25px;
+                    padding: 10px 20px 65px;
+                }
+
+                .registry-card {
+                    width: 100%;
+                    max-width: 510px;
+                    padding: 35px;
+                    color: var(--dark);
+                    background: var(--cream);
+                    border: 1px solid var(--gold);
+                    border-radius: 7px;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+                }
+
+                .card-label {
+                    color: var(--wine);
+                    font-size: 0.68rem;
+                    font-weight: 700;
+                    letter-spacing: 0.2em;
+                    text-align: center;
+                }
+
+                .registry-card h2 {
+                    margin: 10px 0;
+                    color: var(--burgundy);
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.7rem;
+                    text-align: center;
+                }
+
+                .card-description {
+                    color: var(--muted);
+                    font-size: 0.85rem;
+                    text-align: center;
+                }
+
+                .section-divider {
+                    margin: 25px 0;
+                    border-top: 2px dashed #cbbba9;
+                }
+
+                /* member form */
+                label {
+                    margin: 12px 0 7px;
+                    color: #46202e;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                }
+
+                .form-control {
+                    padding: 13px;
+                    color: var(--dark);
+                    background: #fffaf1;
+                    border: 1px solid #d5c5b6;
+                    border-radius: 5px;
+                    font-family: 'DM Sans', sans-serif;
+                }
+
+                .form-control:focus {
+                    background: #fffaf1;
+                    border-color: var(--wine);
+                    box-shadow: 0 0 0 3px rgba(121, 27, 54, 0.1);
+                }
+
+                .add-button {
+                    width: 100%;
+                    margin-top: 25px;
+                    padding: 14px;
+                    color: var(--cream);
+                    background: linear-gradient(135deg, #791b36, #4b0b20);
+                    border: 1px solid var(--gold);
+                    border-radius: 5px;
+                    font-family: 'Cinzel', serif;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    letter-spacing: 0.12em;
+                    transition: 0.2s;
+                }
+
+                .add-button:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 7px 18px rgba(87, 13, 36, 0.2);
+                }
+
+                /* directory results */
+                #output {
+                    margin-top: 25px;
+                    padding: 20px;
+                    color: var(--dark);
+                    background: #fffaf1;
+                    border: 1px solid #dfcda9;
+                    border-radius: 5px;
+                    line-height: 1.9;
+                    font-size: 0.85rem;
+                }
+
+                #output:empty {
+                    display: none;
+                }
+
+                #output h3 {
+                    color: var(--burgundy);
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.15rem;
+                    text-align: center;
+                }
+
+                #output p {
+                    margin-bottom: 8px;
+                }
+
+                #output hr {
+                    border-color: var(--gold);
+                }
+
+                #output p:last-child {
+                    color: var(--wine);
+                    font-weight: 700;
+                    text-align: center;
+                }
+
+                /* footer */
+                footer {
+                    padding: 22px;
+                    color: #cbb9b8;
+                    background: rgba(10, 5, 8, 0.6);
+                    border-top: 1px solid rgba(217, 181, 109, 0.3);
+                    font-size: 0.72rem;
+                    text-align: center;
+                    letter-spacing: 0.08em;
+                }
+
+                footer span {
+                    color: var(--gold);
+                }
+
+                /* mobile layout */
+                @media (max-width: 576px) {
+                    .hero {
+                        padding-top: 40px;
+                    }
+
+                    .registry-card {
+                        padding: 25px 20px;
+                    }
+
+                    .nav-note {
+                        display: none;
+                    }
+                }
+
+        /* showcase navigation */
+        .showcase-nav {
+            position: relative;
+            z-index: 20;
+            width: min(1100px, calc(100% - 28px));
+            margin: 16px auto 22px;
+            padding: 10px 14px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            color: #173d70;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid #b8d5f4;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(24, 74, 130, 0.12);
+            font-family: 'Poppins', 'Nunito', sans-serif;
+        }
+        .showcase-nav .showcase-brand {
+            color: #174a85;
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-decoration: none;
+        }
+        .showcase-nav .showcase-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .showcase-nav a.showcase-link {
+            display: inline-block;
+            padding: 7px 11px;
+            color: #28598e;
+            background: #edf6ff;
+            border: 1px solid #d2e5fa;
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: .2s ease;
+        }
+        .showcase-nav a.showcase-link:hover {
+            color: white;
+            background: #2d69aa;
+            border-color: #2d69aa;
+            transform: translateY(-1px);
+        }
+        @media (max-width: 650px) {
+            .showcase-nav { justify-content: center; text-align: center; }
+            .showcase-nav .showcase-links { justify-content: center; }
+        }
+
+    </style>
+    </head>
+
+    <body>
+
+<nav class="showcase-nav" aria-label="Student showcase navigation">
+    <a class="showcase-brand" href="index.html">NICOLE'S SHOWCASE ✦</a>
+    <div class="showcase-links">
+        <a class="showcase-link" href="index.html">Home</a>
+        <a class="showcase-link" href="element-checker.html">Element Checker</a>
+        <a class="showcase-link" href="club-members.html">Club Members</a>
+        <a class="showcase-link" href="creator.html">Meet the Creator</a>
+    </div>
+</nav>
+
+        <!-- navigation -->
+        <nav class="navbar">
+            <div class="container-fluid">
+                <span class="navbar-brand">CAMPUS REGISTRY</span>
+                <span class="nav-note">STUDENT MEMBERSHIP RECORDS</span>
+            </div>
+        </nav>
+
+        <!-- page introduction -->
+        <header class="hero">
+            <div class="hero-label">THE OFFICIAL STUDENT DIRECTORY</div>
+            <h1>Member Registry</h1>
+            <p>A place for every name, a record for every member.</p>
+            <div class="gold-line"></div>
+        </header>
+
+        <!-- registration section -->
+        <main class="main-area">
+            <section class="registry-card">
+
+                <div class="card-label">MEMBERSHIP MANAGEMENT</div>
+                <h2>Add a Member</h2>
+                <p class="card-description">
+                    Enter the student's information to update the master directory.
+                </p>
+
+                <hr class="section-divider">
+
+                <!-- name input form -->
+                <form>
+                    <label for="first_name">First Name</label>
+                    <input
+                        type="text"
+                        id="first_name"
+                        class="form-control"
+                        placeholder="Enter first name"
+                        autocomplete="given-name"
+                    >
+
+                    <label for="last_name">Last Name</label>
+                    <input
+                        type="text"
+                        id="last_name"
+                        class="form-control"
+                        placeholder="Enter last name"
+                        autocomplete="family-name"
+                    >
+
+                    <input
+                        type="button"
+                        value="ADD TO DIRECTORY"
+                        py-click="add_member"
+                        class="add-button"
+                    >
+                </form>
+
+                <!-- member list and total count -->
+                <div id="output" aria-live="polite"></div>
+
+            </section>
+        </main>
+
+        <!-- page footer -->
+        <footer>
+            &copy; 2026–2027 <span>CAMPUS REGISTRY</span><br>
+            Nicole Manalang · 10-Emerald
+        </footer>
+
+        <!-- python file -->
+        <py-script src="main.py"></py-script>
+    </body>
+</html>
